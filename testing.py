@@ -10,7 +10,7 @@ import json
 path_config = "bin/config.json"
 
 options = webdriver.ChromeOptions()
-options.headless = True # True - the window is hidden, False - the window is not hidden
+options.headless = False # True - the window is hidden, False - the window is not hidden
 options.add_argument("--start-maximized")
 options.add_experimental_option('excludeSwitches', ['enable-logging'])
 driverfile = ChromeDriverManager().install()
@@ -83,7 +83,7 @@ def register_function(id,password,name,ip): #2
     else:
         print('register Failed')
         driver.quit()
-	return False
+        return False
 
 
 def __getconnectmongodb() :
