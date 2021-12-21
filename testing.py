@@ -87,6 +87,7 @@ def register_function(id,password,name,ip): #2
     else:
         print('register Failed')
         driver.quit()
+	return False
 
 
 def __getconnectmongodb() :
