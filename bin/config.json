@@ -15,13 +15,15 @@
 		"color" : "#5fddef"
 	},
 
+
+	
 	"mongodb" : {
-		"host" : "123.123.123.123",
-		"port" : 27017,
+		"host" : "cluster0-shard-00-00.2xlet.mongodb.net:27017,cluster0-shard-00-01.2xlet.mongodb.net:27017,cluster0-shard-00-02.2xlet.mongodb.net",
+		"port" : "27017",
 		"username" : "admin",
 		"password" : "admin",
 		"database" : "hotelsystem",
-		"database_auth" : "admin",
+		"database_auth" : "test?authSource=admin&replicaSet=atlas-6anbtq-shard-0&readPreference=primary&appname=MongoDB+Compass&ssl=true",
 		"srv" : false
 	},
 
