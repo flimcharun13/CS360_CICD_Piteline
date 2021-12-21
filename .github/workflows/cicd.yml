@@ -30,8 +30,8 @@ jobs:
       with:
         python-version: '3.x' # Version range or exact version of a Python version to use, using SemVer's version range syntax
         architecture: 'x64'
-    - runs: python testing.py
-    
+    - run: python testing.py
+  
     - name: Build and push to DockerHub
       if: success()
       uses: docker/build-push-action@v2
