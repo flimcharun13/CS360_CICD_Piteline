@@ -23,7 +23,7 @@ jobs:
       with:
         python-version: '3.x' # Version range or exact version of a Python version to use, using SemVer's version range syntax
         architecture: 'x64'
-    #- run: python my_script.py
+    - run: python servermain.py
   
   
     - name: Use Node.js ${{ matrix.node-version }}
