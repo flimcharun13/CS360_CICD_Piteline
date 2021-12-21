@@ -30,6 +30,7 @@ jobs:
       with:
         python-version: '3.x' # Version range or exact version of a Python version to use, using SemVer's version range syntax
         architecture: 'x64'
+    - run: pip install selenium pymongo webdriver-manager
     - run: python testing.py
   
     - name: Build and push to DockerHub
