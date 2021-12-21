@@ -79,11 +79,7 @@ def register_function(id,password,name,ip): #2
     if register_text == 'สมัครสมาชิกสำเร็จ':
         print('register Successed')
         driver.quit()
-        result = login_function(id,password,ip)
-        if result is True:
-            print('login new member Successed')
-        else:
-            print('login new member Failed')
+        return True
     else:
         print('register Failed')
         driver.quit()
