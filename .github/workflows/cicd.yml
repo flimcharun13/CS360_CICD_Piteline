@@ -37,7 +37,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: Teejirapat/CS360-hotel-system-image:latest
+        tags: Teejirapat/CS360-hotel-system:latest
 
     - name: Configure AWS credentials
       if: success()
