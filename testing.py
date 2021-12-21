@@ -236,15 +236,15 @@ def check_name_members_database(name): #10
 
     return False
 
-one=login_function('members3','members3','http://ec2-54-211-187-79.compute-1.amazonaws.com:8082')
-two=login_function('admin','admin','http://ec2-52-23-159-34.compute-1.amazonaws.com:9000')
-three=logout('members3','members3','http://ec2-54-211-187-79.compute-1.amazonaws.com:8082')
-four=logout('admin','admin','http://ec2-52-23-159-34.compute-1.amazonaws.com:9000')
-five=register_function('members6','members6','jirapat','http://ec2-54-211-187-79.compute-1.amazonaws.com:8082')
+one=login_function('members3','members3','http://ec2-35-173-178-52.compute-1.amazonaws.com:8082')
+two=login_function('admin','admin','http://ec2-54-167-192-205.compute-1.amazonaws.com:9000')
+three=logout('members3','members3','http://ec2-35-173-178-52.compute-1.amazonaws.com:8082')
+four=logout('admin','admin','http://ec2-54-167-192-205.compute-1.amazonaws.com:9000')
+five=register_function('members6','members6','jirapat','http://ec2-35-173-178-52.compute-1.amazonaws.com:8082')
 six=check_user_members_database('members6')
-seven=check_name_member_display('members6','members6','jirapat','http://ec2-54-211-187-79.compute-1.amazonaws.com:8082')
-eight=change_password_member_display('members6','members6','members6test','http://ec2-54-211-187-79.compute-1.amazonaws.com:8082')
-nine=change_name_member('members6','members6','Tom','http://ec2-54-211-187-79.compute-1.amazonaws.com:8082')
+seven=check_name_member_display('members6','members6','jirapat','http://ec2-35-173-178-52.compute-1.amazonaws.com:8082')
+eight=change_password_member_display('members6','members6','members6test','http://ec2-35-173-178-52.compute-1.amazonaws.com:8082')
+nine=change_name_member('members6','members6','Tom','http://ec2-35-173-178-52.compute-1.amazonaws.com:8082')
 ten=check_name_members_database('Tom')
 print('user login function test:',one)
 print('admin login function test:',two)
