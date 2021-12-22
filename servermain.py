@@ -343,7 +343,14 @@ def register() :
 					gender=request.form["gender"],
 					email=request.form["email"]
 				)
-
+				passwd=request.form["password"]
+				if len(passwd) <8:
+					return jsonify({
+						"code" : 401,
+						"icon" : "info",
+						"title" : "รหัสผ่านต้องมากกว่า 8 ตัวขึ้นไป",
+						"description" : "กรุณาลองใหม่อีกครั้ง"
+					}), 200
 				if c_user == "USERNAME_TAKEN" :
 					return jsonify({
 						"code" : 401,
