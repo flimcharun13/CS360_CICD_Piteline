@@ -1,5 +1,4 @@
 sudo yum -y update
-
 sudo yum install git
 sudo yum install python3
 pip3 install flask pymongo requests bcrypt gevent WSGIServer qrcode libscrc
