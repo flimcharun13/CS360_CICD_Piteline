@@ -29,7 +29,7 @@ class FlaskAppTests(unittest.TestCase):
 
     def test_register1(self): #สมัครสมาชิกสำเร็จ
       
-        User = = random.randint(500,100000000) #random USER ID
+        User =  random.randint(500,100000000) #random USER ID
         num = int(self.config_test["register_pass1"]["username"].split('members')[1])
         username_num = str(num+user)
         username = 'members'+username_num
