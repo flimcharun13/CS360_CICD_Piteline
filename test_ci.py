@@ -3,13 +3,14 @@ import servermain as tested_app
 import json 
 import random
 
+username_random 
+
 class FlaskAppTests(unittest.TestCase):
-    
+
     def setUp(self):
-        path_config = "test/config_test.json"
+        path_config = "config_test.json"
         with open(path_config,"r",encoding="utf8") as conf :
             self.config_test = json.loads(conf.read())
-        self.username_random = random.randint(500,100000000)
         tested_app.app.config['TESTING'] = True
         self.app = tested_app.app.test_client()
 
@@ -27,14 +28,16 @@ class FlaskAppTests(unittest.TestCase):
         self.assertEqual(r.json['code'],401)
 
     def test_register1(self): #สมัครสมาชิกสำเร็จ
-
+      
+        User = = random.randint(500,100000000) #random USER ID
         num = int(self.config_test["register_pass1"]["username"].split('members')[1])
-        username_num = str(num+1)
+        username_num = str(num+user)
         username = 'members'+username_num
+        global username_random = username
         self.config_test["register_pass1"]["username"] = username
-        with open("test/config_test.json", 'w') as f:
+        with open("config_test.json", 'w') as f:
             json.dump(self.config_test, f)
-        sent = {"username":username, "password": self.config_test["register_pass1"]["password"],
+        sent = {"username":username_random, "password": self.config_test["register_pass1"]["password"],
         "conpassword":self.config_test["register_pass1"]["conpassword"],"firstname":self.config_test["register_pass1"]["firstname"],
               "lastname":self.config_test["register_pass1"]["lastname"],"gender":self.config_test["register_pass1"]["gender"],
               "email":self.config_test["register_pass1"]["email"]}   
@@ -43,6 +46,7 @@ class FlaskAppTests(unittest.TestCase):
         self.assertEqual(r.json['title'],'สมัครสมาชิกสำเร็จ')
     
     def test_register2(self): #รหัสผ่านต้องมากกว่า 8 ตัวขึ้นไป
+        
         sent = {"username":self.config_test["register_pass2"]["username"], "password": self.config_test["register_pass2"]["password"],
         "conpassword":self.config_test["register_pass2"]["conpassword"],"firstname":self.config_test["register_pass2"]["firstname"],
               "lastname":self.config_test["register_pass2"]["lastname"],"gender":self.config_test["register_pass2"]["gender"],
@@ -89,8 +93,8 @@ class FlaskAppTests(unittest.TestCase):
         self.assertEqual(r.status_code,302)
 
     def test_edit_profile_pass1(self): #แก้ไขโปรไฟล์
-
-        sent = {"username": self.config_test["register_pass1"]["username"], "password": self.config_test["register_pass1"]["password"]}
+        user = global username_random
+        sent = {"username": username_random, "password": self.config_test["register_pass1"]["password"]}
         r = self.app.post('/login',
                           data=sent)
         self.assertEqual(r.json,None)
@@ -103,8 +107,8 @@ class FlaskAppTests(unittest.TestCase):
         self.assertEqual(r.json["data"]["description"],"ระบบได้ทำการแก้ไขข้อมูลแล้ว")
     
     def test_edit_profile_pass2(self): #เปลี่ยนรหัสผ่าน
-
-        sent = {"username": self.config_test["register_pass1"]["username"], "password": self.config_test["register_pass1"]["password"]}
+        user = global username_random
+        sent = {"username":username_random, "password": self.config_test["register_pass1"]["password"]}
         r = self.app.post('/login',
                           data=sent)
         self.assertEqual(r.json,None)
@@ -113,7 +117,7 @@ class FlaskAppTests(unittest.TestCase):
         "password":self.config_test["edit_profile2"]["password"],
         "conpassword":self.config_test["edit_profile2"]["conpassword"]}
         r = self.app.post('/profile',data = sent)
-        self.assertEqual(r.json["data"]["description"],"ระบบได้ทำการแก้ไขข้อมูลแล้ว")
+        self.assertEqual(r.json["data"]["description"],str.encode("utf-8","ระบบได้ทำการแก้ไขข้อมูลแล้ว"))
 
 if __name__ == '__main__':
     unittest.main()
