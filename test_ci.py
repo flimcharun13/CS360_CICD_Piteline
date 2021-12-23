@@ -33,7 +33,7 @@ class FlaskAppTests(unittest.TestCase):
               "email":self.config_test["register_pass1"]["email"]}   
         r = self.app.post('/register',
                           data=sent)
-        self.assertEqual(r.json['title'],'สมัครสมาชิกสำเร็จ')
+        self.assertEqual(r.json['code'],200)
     
     def test_register2(self): #รหัสผ่านต้องมากกว่า 8 ตัวขึ้นไป
         
@@ -94,7 +94,7 @@ class FlaskAppTests(unittest.TestCase):
         "lastname":self.config_test["edit_profile1"]["lastname"],
         "gender":self.config_test["edit_profile1"]["gender"]}
         r = self.app.post('/profile',data = sent)
-        self.assertEqual(r.json["data"]["description"],'ระบบได้ทำการแก้ไขข้อมูลแล้ว')
+        self.assertEqual(r.json["data"]["icon"],'success')
         
         sent = {"action":self.config_test["edit_profile1"]["action"],
         "firstname":self.config_test["register_pass1"]["firstname"],
