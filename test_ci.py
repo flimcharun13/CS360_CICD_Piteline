@@ -4,7 +4,7 @@ import json
 import random
 
 class FlaskAppTests(unittest.TestCase):
-
+global user
     def setUp(self):
         path_config = "config_test.json"
         with open(path_config,"r",encoding="utf8") as conf :
@@ -31,6 +31,7 @@ class FlaskAppTests(unittest.TestCase):
         num = int(self.config_test["register_pass1"]["username"].split('members')[1])
         username_num = str(num+1)
         username = 'members'+username_num
+        user = username
         self.config_test["register_pass1"]["username"] = username
         with open("config_test.json", 'w') as f:
             json.dump(self.config_test, f)
@@ -89,8 +90,8 @@ class FlaskAppTests(unittest.TestCase):
         self.assertEqual(r.status_code,302)
 
     def test_edit_profile_pass1(self): #แก้ไขโปรไฟล์
-
-        sent = {"username": self.username_random, "password": self.config_test["register_pass1"]["password"]}
+        
+        sent = {"username": user, "password": self.config_test["register_pass1"]["password"]}
         r = self.app.post('/login',
                           data=sent)
         self.assertEqual(r.json,None)
@@ -104,7 +105,7 @@ class FlaskAppTests(unittest.TestCase):
     
     def test_edit_profile_pass2(self): #เปลี่ยนรหัสผ่าน
 
-        sent = {"username": self.username_random, "password": self.config_test["register_pass1"]["password"]}
+        sent = {"username": user, "password": self.config_test["register_pass1"]["password"]}
         r = self.app.post('/login',
                           data=sent)
         self.assertEqual(r.json,None)
