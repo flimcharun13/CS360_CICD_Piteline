@@ -1,9 +1,9 @@
-FROM node:16
-
-
-RUN sudo yum -y update
-RUN sudo yum install git 
-RUN sudo yum install python3
-RUN pip3 install flask pymongo requests bcrypt gevent WSGIServer qrcode libscrc uvicorn fastapi 
-EXPOSE 8082
-CMD ["python3","servermain.py"]
+FROM python:3
+# Set application working directory
+WORKDIR /usr/src/app
+# Install requirements
+RUN pip install flask pymongo requests bcrypt gevent WSGIServer qrcode libscrc uvicorn fastapi coverage
+# Install application
+COPY servermain.py ./
+# Run application
+CMD python servermain.py
