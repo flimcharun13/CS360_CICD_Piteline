@@ -420,7 +420,7 @@ def selectroomd(rooms) :
 	return jsonify({
 			"alert" : "swalert",
 			"data" : {
-				"title" : "โปรดกรุณาเข้าสู่ระบบ",
+				"title" : "โปรดกรุณาเข้าสู่ระบบก่อนเข้าจองห้องพัก",
 				"description" : "",
 				"icon" : "error",
 				"redirect" : "/login?room_select=%s" % rooms
