@@ -27,14 +27,7 @@ class FlaskAppTests(unittest.TestCase):
 
     def test_register1(self): #สมัครสมาชิกสำเร็จ
       
-        User =  random.randint(500,100000000) #random USER ID
-        num = int(self.config_test["register_pass1"]["username"].split('members')[1])
-        username_num = str(num+User)
-        username = 'members'+username_num
-        self.config_test["register_pass1"]["username"] = username
-        with open("test/config_test.json", 'w') as f:
-            json.dump(self.config_test, f)
-        sent = {"username":username_random, "password": self.config_test["register_pass1"]["password"],
+        sent = {"username":self.config_test["register_pass1"]["username"], "password": self.config_test["register_pass1"]["password"],
         "conpassword":self.config_test["register_pass1"]["conpassword"],"firstname":self.config_test["register_pass1"]["firstname"],
               "lastname":self.config_test["register_pass1"]["lastname"],"gender":self.config_test["register_pass1"]["gender"],
               "email":self.config_test["register_pass1"]["email"]}   
@@ -94,7 +87,7 @@ class FlaskAppTests(unittest.TestCase):
         sent = {"username": self.config_test["register_pass1"]["username"], "password": self.config_test["edit_profile2"]["password"]}
         r = self.app.post('/login',
                           data=sent)
-        self.assertEqual(r.json,None)
+        
 
         sent = {"action":self.config_test["edit_profile1"]["action"],
         "firstname":self.config_test["edit_profile1"]["firstname"],
@@ -114,7 +107,7 @@ class FlaskAppTests(unittest.TestCase):
         sent = {"username":self.config_test["register_pass1"]["username"], "password": self.config_test["register_pass1"]["password"]}
         r = self.app.post('/login',
                           data=sent)
-        self.assertEqual(r.json,None)
+       
 
         sent = {"action":self.config_test["edit_profile2"]["action"],
         "password":self.config_test["edit_profile2"]["password"],
