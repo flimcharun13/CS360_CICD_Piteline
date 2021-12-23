@@ -90,23 +90,16 @@ class FlaskAppTests(unittest.TestCase):
 
     def test_edit_profile_pass1(self): #แก้ไขโปรไฟล์
 
-        sent = {"username": self.config_test["register_pass1"]["username"], "password": self.config_test["edit_profile2"]["password"]}
+        sent = {"username":self.config_test["register_pass1"]["username"], "password": self.config_test["register_pass1"]["password"]}
         r = self.app.post('/login',
                           data=sent)
-        
+       
 
-        sent = {"action":self.config_test["edit_profile1"]["action"],
-        "firstname":self.config_test["edit_profile1"]["firstname"],
-        "lastname":self.config_test["edit_profile1"]["lastname"],
-        "gender":self.config_test["edit_profile1"]["gender"]}
+        sent = {"action":self.config_test["edit_profile2"]["action"],
+        "password":self.config_test["register_pass5"]["password"],
+        "conpassword":self.config_test["register_pass5"]["conpassword"]}
         r = self.app.post('/profile',data = sent)
-        self.assertEqual(r.json["data"]["code"],200)
-        
-        sent = {"action":self.config_test["edit_profile1"]["action"],
-        "firstname":self.config_test["register_pass1"]["firstname"],
-        "lastname":self.config_test["register_pass1"]["lastname"],
-        "gender":self.config_test["edit_profile1"]["gender"]}
-        r = self.app.post('/profile',data = sent)
+        self.assertEqual(r.json["data"]["description"],'กรุณาลองใหม่อีกครั้ง')
     
     def test_edit_profile_pass2(self): #เปลี่ยนรหัสผ่าน
         
