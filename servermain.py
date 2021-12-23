@@ -348,7 +348,7 @@ def register() :
 					return jsonify({
 						"code" : 401,
 						"icon" : "info",
-						"title" : "รหัสผ่านต้องมากกว่า 8 ตัวขึ้นไป",
+						"title" : "รหัสผ่านต้องไม่น้อยกว่า 8 ตัวอักษร",
 						"description" : "กรุณาลองใหม่อีกครั้ง"
 					}), 200
 				if c_user == "USERNAME_TAKEN" :
