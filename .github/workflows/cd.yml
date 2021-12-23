@@ -25,5 +25,5 @@ jobs:
         env: 
             KEY_PAIR_NAME: ${{ secrets.AWS_KEYPAIR_NAME }}
             SECGROUP_ID: ${{ secrets.AWS_SECGROUP_ID }}
-        run: aws ec2 run-instances --image-id ami-04902260ca3d33422 --instance-type t2.micro  --key-name $KEY_PAIR_NAME --security-group-ids $SECGROUP_ID --user-data Deploy_servermain.sh 
+        run: aws ec2 run-instances --image-id ami-04902260ca3d33422 --instance-type t2.micro  --key-name $KEY_PAIR_NAME --security-group-ids $SECGROUP_ID --user-data Deploy_servermain.txt 
 
