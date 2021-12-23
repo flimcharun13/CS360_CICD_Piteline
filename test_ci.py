@@ -2,13 +2,11 @@ import unittest
 import servermain as tested_app
 import json 
 import random
-
-username_random 
-
+ 
 class FlaskAppTests(unittest.TestCase):
 
     def setUp(self):
-        path_config = "config_test.json"
+        path_config = "test/config_test.json"
         with open(path_config,"r",encoding="utf8") as conf :
             self.config_test = json.loads(conf.read())
         tested_app.app.config['TESTING'] = True
@@ -33,9 +31,8 @@ class FlaskAppTests(unittest.TestCase):
         num = int(self.config_test["register_pass1"]["username"].split('members')[1])
         username_num = str(num+user)
         username = 'members'+username_num
-        username_random = username
         self.config_test["register_pass1"]["username"] = username
-        with open("config_test.json", 'w') as f:
+        with open("test/config_test.json", 'w') as f:
             json.dump(self.config_test, f)
         sent = {"username":username_random, "password": self.config_test["register_pass1"]["password"],
         "conpassword":self.config_test["register_pass1"]["conpassword"],"firstname":self.config_test["register_pass1"]["firstname"],
@@ -94,7 +91,7 @@ class FlaskAppTests(unittest.TestCase):
 
     def test_edit_profile_pass1(self): #แก้ไขโปรไฟล์
         user = username_random
-        sent = {"username": username_random, "password": self.config_test["register_pass1"]["password"]}
+        sent = {"username": self.config_test["register_pass1"]["username"], "password": self.config_test["edit_profile2"]["password"]}
         r = self.app.post('/login',
                           data=sent)
         self.assertEqual(r.json,None)
@@ -105,10 +102,16 @@ class FlaskAppTests(unittest.TestCase):
         "gender":self.config_test["edit_profile1"]["gender"]}
         r = self.app.post('/profile',data = sent)
         self.assertEqual(r.json["data"]["description"],"ระบบได้ทำการแก้ไขข้อมูลแล้ว")
+        
+        sent = {"action":self.config_test["edit_profile1"]["action"],
+        "firstname":self.config_test["register_pass1"]["firstname"],
+        "lastname":self.config_test["register_pass1"]["lastname"],
+        "gender":self.config_test["edit_profile1"]["gender"]}
+        r = self.app.post('/profile',data = sent)
     
     def test_edit_profile_pass2(self): #เปลี่ยนรหัสผ่าน
         user = username_random
-        sent = {"username":username_random, "password": self.config_test["register_pass1"]["password"]}
+        sent = {"username":self.config_test["register_pass1"]["username"], "password": self.config_test["register_pass1"]["password"]}
         r = self.app.post('/login',
                           data=sent)
         self.assertEqual(r.json,None)
@@ -118,6 +121,11 @@ class FlaskAppTests(unittest.TestCase):
         "conpassword":self.config_test["edit_profile2"]["conpassword"]}
         r = self.app.post('/profile',data = sent)
         self.assertEqual(r.json["data"]["description"],str.encode("utf-8","ระบบได้ทำการแก้ไขข้อมูลแล้ว"))
+        
+        sent = {"action":self.config_test["edit_profile2"]["action"],
+        "password":self.config_test["register_pass1"]["password"],
+        "conpassword":self.config_test["register_pass1"]["conpassword"]}
+        r = self.app.post('/profile',data = sent)
 
 if __name__ == '__main__':
     unittest.main()
