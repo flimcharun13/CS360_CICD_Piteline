@@ -29,7 +29,7 @@ class FlaskAppTests(unittest.TestCase):
       
         User =  random.randint(500,100000000) #random USER ID
         num = int(self.config_test["register_pass1"]["username"].split('members')[1])
-        username_num = str(num+user)
+        username_num = str(num+User)
         username = 'members'+username_num
         self.config_test["register_pass1"]["username"] = username
         with open("test/config_test.json", 'w') as f:
@@ -90,7 +90,7 @@ class FlaskAppTests(unittest.TestCase):
         self.assertEqual(r.status_code,302)
 
     def test_edit_profile_pass1(self): #แก้ไขโปรไฟล์
-        user = username_random
+
         sent = {"username": self.config_test["register_pass1"]["username"], "password": self.config_test["edit_profile2"]["password"]}
         r = self.app.post('/login',
                           data=sent)
@@ -110,7 +110,7 @@ class FlaskAppTests(unittest.TestCase):
         r = self.app.post('/profile',data = sent)
     
     def test_edit_profile_pass2(self): #เปลี่ยนรหัสผ่าน
-        user = username_random
+        
         sent = {"username":self.config_test["register_pass1"]["username"], "password": self.config_test["register_pass1"]["password"]}
         r = self.app.post('/login',
                           data=sent)
