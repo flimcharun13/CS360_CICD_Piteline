@@ -49,7 +49,7 @@ class FlaskAppTests(unittest.TestCase):
               "email":self.config_test["register_pass2"]["email"]}    
         r = self.app.post('/register',
                           data=sent)
-        self.assertEqual(r.json['title'],'รหัสผ่านต้องมากกว่า 8 ตัวขึ้นไป')
+        self.assertEqual(r.json['title'],'รหัสผ่านต้องไม่น้อยกว่า 8 ตัวอักษร')
 
     def test_register3(self): #ชื่อผู้ใช้นี้มีในระบบแล้ว
         sent = {"username":self.config_test["register_pass3"]["username"], "password": self.config_test["register_pass3"]["password"],
