@@ -88,7 +88,7 @@ class FlaskAppTests(unittest.TestCase):
         r = self.app.get('/logout')
         self.assertEqual(r.status_code,302)
 
-    def test_edit_profile_pass1(self): #แก้ไขโปรไฟล์
+    def test_edit_profile_pass1(self): #เปลี่ยนรหัสผ่านไม่ตรงกัน
 
         sent = {"username":self.config_test["register_pass1"]["username"], "password": self.config_test["register_pass1"]["password"]}
         r = self.app.post('/login',
