@@ -33,7 +33,7 @@ class FlaskAppTests(unittest.TestCase):
         num = int(self.config_test["register_pass1"]["username"].split('members')[1])
         username_num = str(num+user)
         username = 'members'+username_num
-        global username_random = username
+        username_random = username
         self.config_test["register_pass1"]["username"] = username
         with open("config_test.json", 'w') as f:
             json.dump(self.config_test, f)
@@ -93,7 +93,7 @@ class FlaskAppTests(unittest.TestCase):
         self.assertEqual(r.status_code,302)
 
     def test_edit_profile_pass1(self): #แก้ไขโปรไฟล์
-        user = global username_random
+        user = username_random
         sent = {"username": username_random, "password": self.config_test["register_pass1"]["password"]}
         r = self.app.post('/login',
                           data=sent)
@@ -107,7 +107,7 @@ class FlaskAppTests(unittest.TestCase):
         self.assertEqual(r.json["data"]["description"],"ระบบได้ทำการแก้ไขข้อมูลแล้ว")
     
     def test_edit_profile_pass2(self): #เปลี่ยนรหัสผ่าน
-        user = global username_random
+        user = username_random
         sent = {"username":username_random, "password": self.config_test["register_pass1"]["password"]}
         r = self.app.post('/login',
                           data=sent)
