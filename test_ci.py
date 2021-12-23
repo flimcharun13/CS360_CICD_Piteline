@@ -9,6 +9,7 @@ class FlaskAppTests(unittest.TestCase):
         path_config = "config_test.json"
         with open(path_config,"r",encoding="utf8") as conf :
             self.config_test = json.loads(conf.read())
+        self.username_random = random.randint(500,100000000) #random USER ID
         tested_app.app.config['TESTING'] = True
         self.app = tested_app.app.test_client()
 
@@ -33,7 +34,6 @@ class FlaskAppTests(unittest.TestCase):
         self.config_test["register_pass1"]["username"] = username
         with open("config_test.json", 'w') as f:
             json.dump(self.config_test, f)
-        self.username_random = random.randint(500,1000000000)
         sent = {"username":self.username_random, "password": self.config_test["register_pass1"]["password"],
         "conpassword":self.config_test["register_pass1"]["conpassword"],"firstname":self.config_test["register_pass1"]["firstname"],
               "lastname":self.config_test["register_pass1"]["lastname"],"gender":self.config_test["register_pass1"]["gender"],
