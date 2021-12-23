@@ -94,7 +94,7 @@ class FlaskAppTests(unittest.TestCase):
         "lastname":self.config_test["edit_profile1"]["lastname"],
         "gender":self.config_test["edit_profile1"]["gender"]}
         r = self.app.post('/profile',data = sent)
-        self.assertEqual(r.json["data"]["description"],"ระบบได้ทำการแก้ไขข้อมูลแล้ว")
+        self.assertEqual(r.json["data"]["description"],'ระบบได้ทำการแก้ไขข้อมูลแล้ว')
         
         sent = {"action":self.config_test["edit_profile1"]["action"],
         "firstname":self.config_test["register_pass1"]["firstname"],
@@ -113,7 +113,7 @@ class FlaskAppTests(unittest.TestCase):
         "password":self.config_test["edit_profile2"]["password"],
         "conpassword":self.config_test["edit_profile2"]["conpassword"]}
         r = self.app.post('/profile',data = sent)
-        self.assertEqual(r.json["data"]["description"],str.encode("utf-8","ระบบได้ทำการแก้ไขข้อมูลแล้ว"))
+        self.assertEqual(r.json["data"]["description"],'ระบบได้ทำการแก้ไขข้อมูลแล้ว')
         
         sent = {"action":self.config_test["edit_profile2"]["action"],
         "password":self.config_test["register_pass1"]["password"],
