@@ -1,7 +1,7 @@
 import unittest
 import servermain as tested_app
 import json 
-
+import random
 
 class FlaskAppTests(unittest.TestCase):
 
@@ -33,7 +33,8 @@ class FlaskAppTests(unittest.TestCase):
         self.config_test["register_pass1"]["username"] = username
         with open("config_test.json", 'w') as f:
             json.dump(self.config_test, f)
-        sent = {"username":username, "password": self.config_test["register_pass1"]["password"],
+        self.username_random = random.randint(500,1000000000)
+        sent = {"username":self.username_random, "password": self.config_test["register_pass1"]["password"],
         "conpassword":self.config_test["register_pass1"]["conpassword"],"firstname":self.config_test["register_pass1"]["firstname"],
               "lastname":self.config_test["register_pass1"]["lastname"],"gender":self.config_test["register_pass1"]["gender"],
               "email":self.config_test["register_pass1"]["email"]}   
@@ -88,10 +89,8 @@ class FlaskAppTests(unittest.TestCase):
         self.assertEqual(r.status_code,302)
 
     def test_edit_profile_pass1(self): #แก้ไขโปรไฟล์
-        path_config = "config_test.json"
-        with open(path_config,"r",encoding="utf8") as conf :
-           self.config_test = json.loads(conf.read())
-        sent = {"username": self.config_test["register_pass1"]["username"], "password": self.config_test["register_pass1"]["password"]}
+
+        sent = {"username": self.username_random, "password": self.config_test["register_pass1"]["password"]}
         r = self.app.post('/login',
                           data=sent)
         self.assertEqual(r.json,None)
@@ -104,10 +103,8 @@ class FlaskAppTests(unittest.TestCase):
         self.assertEqual(r.json["data"]["description"],"ระบบได้ทำการแก้ไขข้อมูลแล้ว")
     
     def test_edit_profile_pass2(self): #เปลี่ยนรหัสผ่าน
-        path_config = "config_test.json"
-        with open(path_config,"r",encoding="utf8") as conf :
-           self.config_test = json.loads(conf.read())
-        sent = {"username": self.config_test["register_pass1"]["username"], "password": self.config_test["register_pass1"]["password"]}
+
+        sent = {"username": self.username_random, "password": self.config_test["register_pass1"]["password"]}
         r = self.app.post('/login',
                           data=sent)
         self.assertEqual(r.json,None)
