@@ -6,7 +6,7 @@ import json
 class FlaskAppTests(unittest.TestCase):
 
     def setUp(self):
-        path_config = "test/config_test.json"
+        path_config = "config_test.json"
         with open(path_config,"r",encoding="utf8") as conf :
             self.config_test = json.loads(conf.read())
         tested_app.app.config['TESTING'] = True
@@ -31,7 +31,7 @@ class FlaskAppTests(unittest.TestCase):
         username_num = str(num+1)
         username = 'members'+username_num
         self.config_test["register_pass1"]["username"] = username
-        with open("test/config_test.json", 'w') as f:
+        with open("config_test.json", 'w') as f:
             json.dump(self.config_test, f)
         sent = {"username":username, "password": self.config_test["register_pass1"]["password"],
         "conpassword":self.config_test["register_pass1"]["conpassword"],"firstname":self.config_test["register_pass1"]["firstname"],
