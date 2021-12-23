@@ -103,7 +103,6 @@ def profile() :
 						"data" : {
 							"title" : "สำเร็จ",
 							"description" : "ระบบได้ทำการแก้ไขข้อมูลแล้ว",
-							"code" : 200,
 							"icon" : "success",
 							"redirect" : "/"
 						}
