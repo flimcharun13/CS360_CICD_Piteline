@@ -7,61 +7,67 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+ continuous-integration:
+    build:
 
-    runs-on: windows-latest
+     runs-on: windows-latest
 
-    strategy:
-      matrix:
-        node-version: [16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-        python-version: [ 'pypy-3.8' ]
+     strategy:
+       matrix:
+         node-version: [16.x]
+         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+         python-version: [ 'pypy-3.8' ]
 
-    steps:
+     steps:
  
-    - uses: actions/checkout@v2
-    - uses: actions/setup-python@v2
-      with:
-        python-version: '3.8' # Version range or exact version of a Python version to use, using SemVer's version range syntax
-        architecture: 'x64'
-    - run: python -m pip install --upgrade pip
-    - run: pip install flask pymongo requests bcrypt gevent WSGIServer qrcode libscrc uvicorn fastapi coverage
-    - name: echo workspace
-      run: echo $GITHUB_WORKSPACE
-      shell: bash
-    - name: Run tests
-      run: coverage run test_ci.py
-    - name: Tests report
-      run: coverage report
+     - uses: actions/checkout@v2
+     - uses: actions/setup-python@v2
+       with:
+         python-version: '3.8' # Version range or exact version of a Python version to use, using SemVer's version range syntax
+         architecture: 'x64'
+     - run: python -m pip install --upgrade pip
+     - run: pip install flask pymongo requests bcrypt gevent WSGIServer qrcode libscrc uvicorn fastapi coverage
+     - name: echo workspace
+       run: echo $GITHUB_WORKSPACE
+       shell: bash
+     - name: Run tests
+       run: coverage run test_ci.py
+     - name: Tests report
+       run: coverage report
       
-    - name: Login to DockerHub
-      uses: docker/login-action@v1
-      with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
- 
-    - name: Build and push to DockerHub
-      if: success()
-      uses: docker/build-push-action@v2
-      with:
+     - name: Login to DockerHub
+       uses: docker/login-action@v1
+       with:
+         username: ${{ secrets.DOCKERHUB_USERNAME }}
+         password: ${{ secrets.DOCKERHUB_TOKEN }}
+ continuous-deployment:
+   runs-on: windows-latest
+   needs: [continuous-integration]
+   
+   steps:
+    
+     - name: Build and push to DockerHub
+       if: success()
+       uses: docker/build-push-action@v2
+       with:
         push: true
         tags: flimcharun13/cs360-cicd-image:latest
     
-    - name: Configure AWS credentials
-      if: success()
-      uses: aws-actions/configure-aws-credentials@13d241b293754004c80624b5567555c4a39ffbe3
-      with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
-          aws-region: ${{ secrets.AWS_REGION }}
+     - name: Configure AWS credentials
+       if: success()
+       uses: aws-actions/configure-aws-credentials@13d241b293754004c80624b5567555c4a39ffbe3
+       with:
+            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+            aws-region: ${{ secrets.AWS_REGION }}
  
-    - name: Create EC2 and deploy application to EC2
-      if: success()
-      env: 
-          KEY_PAIR_NAME: ${{ secrets.AWS_KEYPAIR_NAME }}
-          SECGROUP_ID: ${{ secrets.AWS_SECGROUP_ID }}
-      run: aws ec2 run-instances --image-id ami-04902260ca3d33422 --instance-type t2.micro  --key-name $KEY_PAIR_NAME --security-group-ids $SECGROUP_ID --user-data file://script/user_data_script.txt 
+     - name: Create EC2 and deploy application to EC2
+       if: success()
+       env: 
+            KEY_PAIR_NAME: ${{ secrets.AWS_KEYPAIR_NAME }}
+            SECGROUP_ID: ${{ secrets.AWS_SECGROUP_ID }}
+       run: aws ec2 run-instances --image-id ami-04902260ca3d33422 --instance-type t2.micro  --key-name $KEY_PAIR_NAME --security-group-ids $SECGROUP_ID --user-data file://script/user_data_script.txt 
           
 
   
