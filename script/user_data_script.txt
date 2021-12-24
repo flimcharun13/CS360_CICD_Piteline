@@ -7,4 +7,4 @@ sudo service docker start
 sudo gpasswd -a ec2-user docker
 newgrp docker
 
-docker run -dp 3000:3000 tonkitlab/cs360-calc-image
+docker run -dp 8082:8082 tonkitlab/cs360-calc-image
