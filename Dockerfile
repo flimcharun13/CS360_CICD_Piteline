@@ -10,9 +10,11 @@ RUN apt-get install vim -y
 RUN pip install flask pymongo requests bcrypt gevent WSGIServer qrcode libscrc uvicorn fastapi coverage
 # Install application
 
+WORKDIR /usr/src/app
+
 COPY . .
 
-WORKDIR /usr/src/app
+
 # Expose container port to outside host
 EXPOSE 8082
 
