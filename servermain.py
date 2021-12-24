@@ -1051,4 +1051,4 @@ if __name__ == "__main__" :
 	thread.start()
 	thread2.start()
 
-	app.run(port=8085,debug=False)
+	app.run(port=8082,debug=False)
